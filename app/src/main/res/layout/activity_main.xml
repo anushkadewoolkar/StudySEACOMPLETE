@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sea"
+    tools:context=".MainActivity">
+
+
+    <Button
+        android:id="@+id/tasks"
+        android:layout_width="101dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="428dp"
+        android:background="@color/colorPrimary"
+        android:text="tasks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/flashcards"
+        android:layout_width="113dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="316dp"
+        android:background="@color/colorPrimary"
+        android:text="flashcards"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="243dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginBottom="482dp"
+        android:background="@color/colorPrimaryLight"
+        android:text="StudySEA"
+        android:textColor="@color/black"
+        android:textSize="55sp"
+        android:textStyle="normal|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
