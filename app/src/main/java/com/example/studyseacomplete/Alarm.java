@@ -30,7 +30,7 @@ public class Alarm {
 
         OverdueListener listener = new OverdueListener(task);
         AlarmManager alarmManager = (AlarmManager) HomeworkPlanner.getContext().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, Long.parseLong(task.get(TaskDatabase.COLUMN_DUE)), "Overdue Alarm", listener, null);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, Long.parseLong(task.get(TaskDatabase.COLUMN_DATE_DUE)), "Overdue Alarm", listener, null);
 
         overdueAlarms.put(task.getId(), listener);
     }
@@ -49,11 +49,11 @@ public class Alarm {
         if (task == null)
             throw new InvalidParameterException("task cannot be null");
 
-        if (task.get(TaskDatabase.COLUMN_REMINDER) == null)
+        if (task.get(TaskDatabase.COLUMN_REMINDER_TIME) == null)
             return;     // reminders are disabled for this task
 
-        Long due = Long.parseLong(task.get(TaskDatabase.COLUMN_DUE));
-        Long reminder = Long.parseLong(task.get(TaskDatabase.COLUMN_REMINDER));     // # miliseconds before 'due' to trigger reminder
+        Long due = Long.parseLong(task.get(TaskDatabase.COLUMN_DATE_DUE));
+        Long reminder = Long.parseLong(task.get(TaskDatabase.COLUMN_REMINDER_TIME));     // # miliseconds before 'due' to trigger reminder
         ReminderListener listener = new ReminderListener(task);
 
         AlarmManager alarmManager = (AlarmManager) HomeworkPlanner.getContext().getSystemService(Context.ALARM_SERVICE);

@@ -51,7 +51,7 @@ class TaskCursorAdapter extends CursorAdapter implements View.OnClickListener, V
         clTask.setOnClickListener(this);
         clTask.setOnLongClickListener(this);
 
-        final long due = Long.parseLong(task.get(TaskDatabase.COLUMN_DUE));
+        final long due = Long.parseLong(task.get(TaskDatabase.COLUMN_DATE_DUE));
         long now = Calendar.getInstance().getTimeInMillis();
         final TextView tvDue = (TextView) view.findViewById(R.id.tvDue);
 

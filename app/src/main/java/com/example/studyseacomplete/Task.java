@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static com.example.studyseacomplete.TaskDatabase.COLUMN_FINISHED;
 import static com.example.studyseacomplete.TaskDatabase.COLUMN_ID;
-import static com.example.studyseacomplete.TaskDatabase.TABLE_TASKS;
+import static com.example.studyseacomplete.TaskDatabase.TABLE_ALLTASKS;
 import static java.text.DateFormat.getDateTimeInstance;
 
 /**
@@ -66,7 +66,7 @@ class Task {
         tvClass.setText(properties.get(TaskDatabase.COLUMN_CLASS));
         //tvPriority.setText(properties.get(TaskDatabase.COLUMN_PRIORITY));
         tvId.setText(properties.get(COLUMN_ID));
-        tvDue.setText("Due on " + getDateTimeInstance().format(new Date(Long.parseLong(properties.get(TaskDatabase.COLUMN_DUE)))));
+        tvDue.setText("Due on " + getDateTimeInstance().format(new Date(Long.parseLong(properties.get(TaskDatabase.COLUMN_DATE_DUE)))));
 
         return view;
     }
@@ -79,7 +79,7 @@ class Task {
             if (entry.getKey() != COLUMN_ID)
                 cv.put(entry.getKey(), entry.getValue());
 
-        return TaskDatabase.getDatabase().insert(TABLE_TASKS, null, cv);
+        return TaskDatabase.getDatabase().insert(TABLE_ALLTASKS, null, cv);
     }
 
     void updateTask() {
@@ -89,7 +89,7 @@ class Task {
             if (entry.getKey() != COLUMN_ID)
                 cv.put(entry.getKey(), entry.getValue());
 
-        TaskDatabase.getDatabase().update(TABLE_TASKS, cv, COLUMN_ID + " = " + getId(), null);
+        TaskDatabase.getDatabase().update(TABLE_ALLTASKS, cv, COLUMN_ID + " = " + getId(), null);
     }
 
     void markFinished() {
@@ -98,11 +98,11 @@ class Task {
 
         // TODO: delete alarms
 
-        TaskDatabase.getDatabase().update(TABLE_TASKS, cv, COLUMN_ID + " = " + getId(), null);
+        TaskDatabase.getDatabase().update(TABLE_ALLTASKS, cv, COLUMN_ID + " = " + getId(), null);
     }
 
     void delete() {
-        TaskDatabase.getDatabase().delete(TABLE_TASKS, COLUMN_ID + " = " + getId(), null);
+        TaskDatabase.getDatabase().delete(TABLE_ALLTASKS, COLUMN_ID + " = " + getId(), null);
     }
 
     String get(String column) {

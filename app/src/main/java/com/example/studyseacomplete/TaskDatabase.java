@@ -4,34 +4,34 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class TaskDatabase extends SQLiteOpenHelper {
+class  TaskDatabase extends SQLiteOpenHelper {
     //task table
-    static final String TABLE_TASKS = "tasks";
-    static final String COLUMN_ID = "_id";
-    static final String COLUMN_CLASS = "class";
+    static final String TABLE_ALLTASKS = "alltasks";
+    static final String COLUMN_ID = "_id"; //?
+    static final String COLUMN_CLASS = "class"; //?
     static final String COLUMN_TASK = "task";
     static final String COLUMN_FINISHED = "finished";
-    static final String COLUMN_DUE = "due";
-    static final String COLUMN_DURATION = "duration";
-    static final String COLUMN_REMINDER = "reminder";
+    static final String COLUMN_DATE_DUE = "due";
+    static final String COLUMN_DURATION_TIME = "duration";
+    static final String COLUMN_REMINDER_TIME = "reminder";
     static final String COLUMN_REMINDER_HOURS = "reminder_hours";
     static final String COLUMN_REMINDER_DAYS = "reminder_days";
-    static final String COLUMN_DURATION_UI = "duration_ui";
-    static final String COLUMN_REMINDER_UI = "reminder_ui";
+    static final String COLUMN_DURATION_INPUT = "duration_input";
+    static final String COLUMN_REMINDER_INPUT = "reminder_input";
     static final String COLUMN_IMPORTANCE = "importance";
 
     static final String TABLE_COLUMNS[] = {
-            COLUMN_DUE,
+            COLUMN_DATE_DUE,
             COLUMN_IMPORTANCE,
             COLUMN_CLASS,
             COLUMN_ID,
             COLUMN_TASK,
-            COLUMN_DURATION,
-            COLUMN_REMINDER,
+            COLUMN_DURATION_TIME,
+            COLUMN_REMINDER_TIME,
             COLUMN_REMINDER_HOURS,
             COLUMN_REMINDER_DAYS,
-            COLUMN_DURATION_UI,
-            COLUMN_REMINDER_UI,
+            COLUMN_DURATION_INPUT,
+            COLUMN_REMINDER_INPUT,
             COLUMN_FINISHED
     };
 
@@ -53,12 +53,12 @@ class TaskDatabase extends SQLiteOpenHelper {
 
     public static Cursor getUnfinishedTaskCursor() {
         // Sort algorithm: importance / 10 * ( 100 - duration / 30 - EXP(0.001 * time_to_deadline_in_minutes))
-        return instance.db.query(true, TABLE_TASKS, null, COLUMN_FINISHED + " = 0", null, null, null,
-                COLUMN_IMPORTANCE + " * 0.1 * ( 100 - 60*1000*" + COLUMN_DURATION + " / 30 - 1.06)", null);
+        return instance.db.query(true, TABLE_ALLTASKS, null, COLUMN_FINISHED + " = 0", null, null, null,
+                COLUMN_IMPORTANCE + " * 0.1 * ( 100 - 60*1000*" + COLUMN_DURATION_TIME + " / 30 - 1.06)", null);
     }
 
     public static Cursor selectTaskById(long id) {
-        return instance.db.query(true, TABLE_TASKS, null, COLUMN_ID + " = " + new Long(id).toString(),
+        return instance.db.query(true, TABLE_ALLTASKS, null, COLUMN_ID + " = " + new Long(id).toString(),
                 null, null, null, null, null);
     }
 
@@ -67,19 +67,19 @@ class TaskDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "
-                + TABLE_TASKS + " ( "
+                + TABLE_ALLTASKS + " ( "
 
                 + COLUMN_ID + " integer primary key autoincrement default 0, "
                 + COLUMN_CLASS + " string, "
                 + COLUMN_TASK + " string, "
                 + COLUMN_IMPORTANCE + " long, "
-                + COLUMN_REMINDER + " long, "
+                + COLUMN_REMINDER_TIME + " long, "
                 + COLUMN_REMINDER_DAYS + " long, "
                 + COLUMN_REMINDER_HOURS + " long, "
-                + COLUMN_DURATION + " long, "
-                + COLUMN_REMINDER_UI + " long, "
-                + COLUMN_DURATION_UI + " long, "
-                + COLUMN_DUE + " long, "
+                + COLUMN_DURATION_TIME + " long, "
+                + COLUMN_REMINDER_INPUT + " long, "
+                + COLUMN_DURATION_INPUT + " long, "
+                + COLUMN_DATE_DUE + " long, "
                 + COLUMN_FINISHED + " long DEFAULT 0 );");
     }
 

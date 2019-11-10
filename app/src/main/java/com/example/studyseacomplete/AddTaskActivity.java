@@ -58,19 +58,19 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
             "9:00 hours",
             "10:00 hours"
     };
-    Task task;
-    EditText etTask;
-    EditText etClass;
-    EditText etDueMillis;
-    EditText etDue;
-    SeekBar sbDuration;
-    SeekBar sbImportance;
-    TextView tvDuration;
-    Spinner sReminder;
-    TextView tvReminderDays;
-    TextView tvReminderHours;
-    Spinner sReminderDays;
-    Spinner sReminderHours;
+    Task newTask;
+    EditText Task;
+    EditText Class;
+    EditText DueInMilliseconds;
+    EditText DateDue;
+    SeekBar TimeForTaskEntered;
+    SeekBar ImportanceOfTask;
+    TextView TimeForTaskDisplay;
+    Spinner TaskReminder;
+    TextView DisplayReminderDays;
+    TextView DisplayReminderHours;
+    Spinner ChooseReminderDays;
+    Spinner ChooseReminderHours;
     String reminder = "None";
     ArrayAdapter<CharSequence> reminderHourAdapter;
     ArrayAdapter<CharSequence> reminderDayAdapter;
@@ -82,49 +82,54 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_add_task);
         long id = getIntent().getLongExtra("task", -1);
         if (id != -1)
-            task = new Task(id);
+            newTask = new Task(id);
 
-        etTask = (EditText) findViewById(R.id.etTask);
-        etClass = (EditText) findViewById(R.id.etClass);
-        sbDuration = (SeekBar) findViewById(R.id.sbDuration);
-        etDueMillis = (EditText) findViewById(R.id.etDueMillis);
-        etDue = (EditText) findViewById(R.id.etDue);
-        tvDuration = (TextView) findViewById(R.id.tvDuration);
-        sbImportance = (SeekBar) findViewById(R.id.sbImportance);
-        sReminder = (Spinner) findViewById(R.id.sReminder);
-        tvReminderDays = (TextView) findViewById(R.id.tvReminderDays);
-        tvReminderHours = (TextView) findViewById(R.id.tvReminderHours);
-        sReminderDays = (Spinner) findViewById(R.id.sReminderDays);
-        sReminderHours = (Spinner) findViewById(R.id.sReminderHours);
+        Task = (EditText) findViewById(R.id.etTask);
+        Class = (EditText) findViewById(R.id.etClass);
+        TimeForTaskEntered = (SeekBar) findViewById(R.id.sbDuration);
+        DueInMilliseconds = (EditText) findViewById(R.id.etDueMillis);
+        DateDue = (EditText) findViewById(R.id.etDue);
+        TimeForTaskDisplay = (TextView) findViewById(R.id.tvDuration);
+        ImportanceOfTask = (SeekBar) findViewById(R.id.sbImportance);
+        TaskReminder = (Spinner) findViewById(R.id.sReminder);
+        DisplayReminderDays = (TextView) findViewById(R.id.tvReminderDays);
+        DisplayReminderHours = (TextView) findViewById(R.id.tvReminderHours);
+        ChooseReminderDays = (Spinner) findViewById(R.id.sReminderDays);
+        ChooseReminderHours = (Spinner) findViewById(R.id.sReminderHours);
 
-        tvReminderHours.setVisibility(View.INVISIBLE);
-        tvReminderDays.setVisibility(View.INVISIBLE);
-        sReminderHours.setVisibility(View.INVISIBLE);
-        sReminderDays.setVisibility(View.INVISIBLE);
-
-        reminderHourAdapter = ArrayAdapter.createFromResource(this, R.array.ReminderHours, android.R.layout.simple_spinner_item);
-        reminderHourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sReminderHours.setAdapter(reminderHourAdapter);
+        DisplayReminderDays.setVisibility(View.INVISIBLE);
+        DisplayReminderHours.setVisibility(View.INVISIBLE);
+        ChooseReminderDays.setVisibility(View.INVISIBLE);
+        ChooseReminderHours.setVisibility(View.INVISIBLE);
 
         reminderDayAdapter = ArrayAdapter.createFromResource(this, R.array.ReminderDays, android.R.layout.simple_spinner_item);
         reminderDayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sReminderDays.setAdapter(reminderDayAdapter);
+        ChooseReminderDays.setAdapter(reminderDayAdapter);
+
+        reminderHourAdapter = ArrayAdapter.createFromResource(this, R.array.ReminderHours, android.R.layout.simple_spinner_item);
+        reminderHourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ChooseReminderHours.setAdapter(reminderHourAdapter);
+
+
 
         reminderAdapter = ArrayAdapter.createFromResource(this, R.array.ReminderTimes, android.R.layout.simple_spinner_item);
         reminderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sReminder.setAdapter(reminderAdapter);
-        sReminder.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+        TaskReminder.setAdapter(reminderAdapter);
+        TaskReminder.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 if (((String) parent.getItemAtPosition(pos)).compareTo("Custom") == 0) {
-                    tvReminderHours.setVisibility(View.VISIBLE);
-                    tvReminderDays.setVisibility(View.VISIBLE);
-                    sReminderHours.setVisibility(View.VISIBLE);
-                    sReminderDays.setVisibility(View.VISIBLE);
+                    DisplayReminderDays.setVisibility(View.VISIBLE);
+                    DisplayReminderHours.setVisibility(View.VISIBLE);
+
+                    ChooseReminderDays.setVisibility(View.VISIBLE);
+                    ChooseReminderHours.setVisibility(View.VISIBLE);
+
                 } else {
-                    tvReminderHours.setVisibility(View.INVISIBLE);
-                    tvReminderDays.setVisibility(View.INVISIBLE);
-                    sReminderHours.setVisibility(View.INVISIBLE);
-                    sReminderDays.setVisibility(View.INVISIBLE);
+                    DisplayReminderDays.setVisibility(View.INVISIBLE);
+                    DisplayReminderHours.setVisibility(View.INVISIBLE);
+
+                    ChooseReminderDays.setVisibility(View.INVISIBLE);
+                    ChooseReminderHours.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -132,7 +137,7 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
             }
         });
 
-        etDue.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
+        DateDue.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (hasFocus)
@@ -140,31 +145,36 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
             }
         });
 
-        if (task == null) {
+        if (newTask == null) {
             setTitle("New Task");
-            etDueMillis.setText(Long.toString(Calendar.getInstance().getTimeInMillis()));
+            DueInMilliseconds.setText(Long.toString(Calendar.getInstance().getTimeInMillis()));
             findViewById(R.id.bDelete).setVisibility(View.INVISIBLE);
-            sbDuration.setProgress(4);
-            tvDuration.setText(durationTimes[4]);
-        } else {
+            TimeForTaskEntered.setProgress(4);
+            TimeForTaskDisplay.setText(durationTimes[4]);
+        }
+
+        else {
             setTitle("Edit Task");
             ((Button) findViewById(R.id.bSubmit)).setText("Save");
 
             // fill inputs with task properties
-            etTask.setText(task.get(TaskDatabase.COLUMN_TASK));
-            etClass.setText(task.get(TaskDatabase.COLUMN_CLASS));
-            setDateTime(Long.parseLong(task.get(TaskDatabase.COLUMN_DUE)));
-            sbDuration.setProgress(Integer.parseInt(task.get(TaskDatabase.COLUMN_DURATION_UI)));
-            tvDuration.setText(durationTimes[Integer.parseInt(task.get((TaskDatabase.COLUMN_DURATION_UI)))]);
-            sReminder.setSelection(Integer.parseInt(task.get(TaskDatabase.COLUMN_REMINDER_UI)));
-            sReminderHours.setSelection(Integer.parseInt(task.get(TaskDatabase.COLUMN_REMINDER_HOURS)));
-            sReminderDays.setSelection(Integer.parseInt(task.get(TaskDatabase.COLUMN_REMINDER_DAYS)));
-            sbImportance.setProgress(Integer.parseInt(task.get(TaskDatabase.COLUMN_IMPORTANCE)));
+            Task.setText(newTask.get(TaskDatabase.COLUMN_TASK));
+            Class.setText(newTask.get(TaskDatabase.COLUMN_CLASS));
+            setDateTime(Long.parseLong(newTask.get(TaskDatabase.COLUMN_DATE_DUE)));
+
+            TimeForTaskEntered.setProgress(Integer.parseInt(newTask.get(TaskDatabase.COLUMN_DURATION_INPUT)));
+            TimeForTaskDisplay.setText(durationTimes[Integer.parseInt(newTask.get((TaskDatabase.COLUMN_DURATION_INPUT)))]);
+
+            TaskReminder.setSelection(Integer.parseInt(newTask.get(TaskDatabase.COLUMN_REMINDER_INPUT)));
+            ChooseReminderHours.setSelection(Integer.parseInt(newTask.get(TaskDatabase.COLUMN_REMINDER_HOURS)));
+            ChooseReminderDays.setSelection(Integer.parseInt(newTask.get(TaskDatabase.COLUMN_REMINDER_DAYS)));
+
+            ImportanceOfTask.setProgress(Integer.parseInt(newTask.get(TaskDatabase.COLUMN_IMPORTANCE)));
         }
 
-        sbDuration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        TimeForTaskEntered.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tvDuration.setText(durationTimes[progress]);
+                TimeForTaskDisplay.setText(durationTimes[progress]);
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -179,24 +189,24 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
     public void setDateTime(int year, int month, int dayOfMonth, int hour, int minute) {
         Calendar datetime = new GregorianCalendar(year, month, dayOfMonth, hour, minute);
 
-        etDueMillis.setText(Long.toString(datetime.getTimeInMillis()));
-        etDue.setText(getDateTimeInstance().format(datetime.getTime()));
+        DueInMilliseconds.setText(Long.toString(datetime.getTimeInMillis()));
+        DateDue.setText(getDateTimeInstance().format(datetime.getTime()));
     }
 
     public void setDateTime(long millis) {
-        etDueMillis.setText(Long.toString(millis));
-        etDue.setText(getDateTimeInstance().format(new Date(millis)));
+        DueInMilliseconds.setText(Long.toString(millis));
+        DateDue.setText(getDateTimeInstance().format(new Date(millis)));
     }
 
     // display the date & time picker dialogs
     public void onDateClick(View v) {
-        new DateTimePicker(this, Long.parseLong("" + etDueMillis.getText())).show();
+        new DateTimePicker(this, Long.parseLong("" + DueInMilliseconds.getText())).show();
     }
 
     // convert string displayed above duration slider/seekbar to miliseconds (as string)
     private String getDuration() throws InvalidParameterException {
         Pattern p = Pattern.compile("^([0-9]+):([0-9]+)");
-        Matcher match = p.matcher(durationTimes[sbDuration.getProgress()]);
+        Matcher match = p.matcher(durationTimes[TimeForTaskEntered.getProgress()]);
         match.find();
 
         Integer hours = new Integer(match.group(1));
@@ -206,17 +216,17 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
 
     // return the amount of time before the task is due to display a reminder
     private String getReminderTime() throws InvalidParameterException {
-        switch ((String) sReminder.getSelectedItem()) {
+        switch ((String) TaskReminder.getSelectedItem()) {
             case "Custom":
-                Integer days = new Integer(sReminderDays.getSelectedItem().toString());
-                Integer hours = new Integer(sReminderHours.getSelectedItem().toString());
+                Integer days = new Integer(ChooseReminderDays.getSelectedItem().toString());
+                Integer hours = new Integer(ChooseReminderHours.getSelectedItem().toString());
 
                 return new Integer(days * 24 * 60 * 60 * 1000 + days * 60 * 60 * 1000).toString();
             case "None":
                 return "0";
             default:
                 Pattern pattern = Pattern.compile("^(\\d+) (\\w+[^s])s?$");
-                Matcher match = pattern.matcher((String) sReminder.getSelectedItem());
+                Matcher match = pattern.matcher((String) TaskReminder.getSelectedItem());
                 match.find();
 
                 Integer num = new Integer(match.group(1));
@@ -239,11 +249,11 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void submit(View v) throws Exception {
         // TODO: better error handling
-        if (etTask.getText().length() == 0)
+        if (Task.getText().length() == 0)
             Snackbar.make(findViewById(android.R.id.content), "Please enter a task name", Snackbar.LENGTH_LONG)
                     .show();
 
-        else if (etClass.getText().length() == 0)
+        else if (Class.getText().length() == 0)
             Snackbar.make(findViewById(android.R.id.content), "Please enter a class name", Snackbar.LENGTH_LONG)
                     .show();
 
@@ -251,46 +261,46 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
             HashMap<String, String> properties = new HashMap<>();
 
             // load existing task id if editing a task
-            if (task != null)
-                properties.put(TaskDatabase.COLUMN_ID, task.getId().toString());
+            if (newTask != null)
+                properties.put(TaskDatabase.COLUMN_ID, newTask.getId().toString());
 
-            properties.put(TaskDatabase.COLUMN_TASK, etTask.getText().toString());
-            properties.put(TaskDatabase.COLUMN_CLASS, etClass.getText().toString());
-            properties.put(TaskDatabase.COLUMN_DUE, etDueMillis.getText().toString());
-            properties.put(TaskDatabase.COLUMN_DURATION, getDuration());
-            properties.put(TaskDatabase.COLUMN_IMPORTANCE, Integer.toString(sbImportance.getProgress()));
-            properties.put(TaskDatabase.COLUMN_REMINDER, getReminderTime());
-            properties.put(TaskDatabase.COLUMN_DURATION_UI, Integer.toString(sbDuration.getProgress()));
-            properties.put(TaskDatabase.COLUMN_REMINDER_UI, Long.toString(sReminder.getSelectedItemId()));
-            properties.put(TaskDatabase.COLUMN_REMINDER_DAYS, sReminderDays.getSelectedItem().toString());
-            properties.put(TaskDatabase.COLUMN_REMINDER_HOURS, sReminderHours.getSelectedItem().toString());
+            properties.put(TaskDatabase.COLUMN_TASK, Task.getText().toString());
+            properties.put(TaskDatabase.COLUMN_CLASS, Class.getText().toString());
+            properties.put(TaskDatabase.COLUMN_DATE_DUE, DueInMilliseconds.getText().toString());
+            properties.put(TaskDatabase.COLUMN_DURATION_TIME, getDuration());
+            properties.put(TaskDatabase.COLUMN_IMPORTANCE, Integer.toString(ImportanceOfTask.getProgress()));
+            properties.put(TaskDatabase.COLUMN_REMINDER_TIME, getReminderTime());
+            properties.put(TaskDatabase.COLUMN_DURATION_INPUT, Integer.toString(TimeForTaskEntered.getProgress()));
+            properties.put(TaskDatabase.COLUMN_REMINDER_INPUT, Long.toString(TaskReminder.getSelectedItemId()));
+            properties.put(TaskDatabase.COLUMN_REMINDER_DAYS, ChooseReminderDays.getSelectedItem().toString());
+            properties.put(TaskDatabase.COLUMN_REMINDER_HOURS, ChooseReminderHours.getSelectedItem().toString());
 
-            if (task == null) {
-                task = new Task(properties);
+            if (newTask == null) {
+                newTask = new Task(properties);
 
                 // add new task to database
-                Long id = new Long(task.insertTask());
-                task.set(TaskDatabase.COLUMN_ID, id.toString());
+                Long id = new Long(newTask.insertTask());
+                newTask.set(TaskDatabase.COLUMN_ID, id.toString());
             } else {
-                task = new Task(properties);
+                newTask = new Task(properties);
 
                 // cancel old alarms
-                Alarm.cancelOverdueAlarm(task.getId());
-                Alarm.cancelReminderAlarm(task.getId());
+                Alarm.cancelOverdueAlarm(newTask.getId());
+                Alarm.cancelReminderAlarm(newTask.getId());
 
                 // update task in database
-                task.updateTask();
+                newTask.updateTask();
             }
 
             long now = Calendar.getInstance().getTimeInMillis();
 
             // create an overdue alarm for the task
-            if (now < Long.parseLong(task.get(TaskDatabase.COLUMN_DUE)))
-                Alarm.setOverdueAlarm(task);
+            if (now < Long.parseLong(newTask.get(TaskDatabase.COLUMN_DATE_DUE)))
+                Alarm.setOverdueAlarm(newTask);
 
             // create a reminder alarm for the task
-            if (task.get(TaskDatabase.COLUMN_REMINDER) != "0")
-                Alarm.setReminderAlarm(task);
+            if (newTask.get(TaskDatabase.COLUMN_REMINDER_TIME) != "0")
+                Alarm.setReminderAlarm(newTask);
 
             setResult(RESULT_OK, null);
             finish();
@@ -306,7 +316,7 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        task.delete();
+                        newTask.delete();
                         setResult(RESULT_OK, null);
                         finish();
                     }
