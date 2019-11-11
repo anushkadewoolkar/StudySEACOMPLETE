@@ -1,9 +1,5 @@
 package com.example.studyseacomplete;
 
-/**
- * Created by us
- */
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
