@@ -15,7 +15,7 @@ import java.util.List;
 //https://developer.android.com/reference/android/arch/persistence/room/Dao
 //https://medium.com/androiddevelopers/7-pro-tips-for-room-fbadea4bfbd1
 //https://medium.com/@ajaysaini.official/building-database-with-room-persistence-library-ecf7d0b8f3e9
-public interface FlashcardDAO {
+public interface FlashcardDao {
     //Query requests data
     @Query("SELECT * FROM flashcard") //https://developer.android.com/reference/android/arch/persistence/room/Query.html
     //gets all flashcards

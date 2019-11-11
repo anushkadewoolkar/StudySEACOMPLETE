@@ -34,7 +34,8 @@
         android:layout_marginTop="50dp"
         android:background="@color/aqua"
         android:hint="Enter question here"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@color/black" />
 
     <EditText
         android:id="@+id/answer1"
@@ -45,6 +46,7 @@
         android:layout_marginTop="50dp"
         android:background="@color/aqua"
         android:hint="Enter answer here"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@color/black" />
 
 </RelativeLayout>
