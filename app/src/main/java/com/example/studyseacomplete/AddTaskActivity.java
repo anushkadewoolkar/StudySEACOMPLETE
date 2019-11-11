@@ -166,8 +166,8 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
             TimeForTaskDisplay.setText(durationTimes[Integer.parseInt(newTask.get((TaskDatabase.COLUMN_DURATION_INPUT)))]);
 
             TaskReminder.setSelection(Integer.parseInt(newTask.get(TaskDatabase.COLUMN_REMINDER_INPUT)));
-            ChooseReminderHours.setSelection(Integer.parseInt(newTask.get(TaskDatabase.COLUMN_REMINDER_HOURS)));
-            ChooseReminderDays.setSelection(Integer.parseInt(newTask.get(TaskDatabase.COLUMN_REMINDER_DAYS)));
+            ChooseReminderHours.setSelection(Integer.parseInt(newTask.get(TaskDatabase.COLUMN_HOURS)));
+            ChooseReminderDays.setSelection(Integer.parseInt(newTask.get(TaskDatabase.COLUMN_DAYS)));
 
             ImportanceOfTask.setProgress(Integer.parseInt(newTask.get(TaskDatabase.COLUMN_IMPORTANCE)));
         }
@@ -269,11 +269,11 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
             properties.put(TaskDatabase.COLUMN_DATE_DUE, DueInMilliseconds.getText().toString());
             properties.put(TaskDatabase.COLUMN_DURATION_TIME, getDuration());
             properties.put(TaskDatabase.COLUMN_IMPORTANCE, Integer.toString(ImportanceOfTask.getProgress()));
-            properties.put(TaskDatabase.COLUMN_REMINDER_TIME, getReminderTime());
             properties.put(TaskDatabase.COLUMN_DURATION_INPUT, Integer.toString(TimeForTaskEntered.getProgress()));
             properties.put(TaskDatabase.COLUMN_REMINDER_INPUT, Long.toString(TaskReminder.getSelectedItemId()));
-            properties.put(TaskDatabase.COLUMN_REMINDER_DAYS, ChooseReminderDays.getSelectedItem().toString());
-            properties.put(TaskDatabase.COLUMN_REMINDER_HOURS, ChooseReminderHours.getSelectedItem().toString());
+            properties.put(TaskDatabase.COLUMN_TIME, getReminderTime());
+            properties.put(TaskDatabase.COLUMN_DAYS, ChooseReminderDays.getSelectedItem().toString());
+            properties.put(TaskDatabase.COLUMN_HOURS, ChooseReminderHours.getSelectedItem().toString());
 
             if (newTask == null) {
                 newTask = new Task(properties);
@@ -299,7 +299,7 @@ public class AddTaskActivity extends AppCompatActivity implements Serializable {
                 Alarm.setOverdueAlarm(newTask);
 
             // create a reminder alarm for the task
-            if (newTask.get(TaskDatabase.COLUMN_REMINDER_TIME) != "0")
+            if (newTask.get(TaskDatabase.COLUMN_TIME) != "0")
                 Alarm.setReminderAlarm(newTask);
 
             setResult(RESULT_OK, null);

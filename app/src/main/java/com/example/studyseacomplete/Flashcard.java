@@ -14,17 +14,9 @@ public class Flashcard {
 
     @Ignore
     Flashcard(String question, String answer) {
-        this.uuid = UUID.randomUUID().toString();
+        this.uuid = UUID.randomUUID().toString(); //Why to use UUID: one ID is unique across all databases
         this.question = question;
         this.answer = answer;
-    }
-
-    Flashcard(String question, String answer, String wrongAnswer1, String wrongAnswer2) {
-        this.uuid = UUID.randomUUID().toString();
-        this.question = question;
-        this.answer = answer;
-        this.wrongAnswer1 = wrongAnswer1;
-        this.wrongAnswer2 = wrongAnswer2;
     }
 
     @PrimaryKey
@@ -48,13 +40,6 @@ public class Flashcard {
     @ColumnInfo(name = "answer")
     private String answer;
 
-    @Nullable
-    @ColumnInfo(name = "wrong_answer_1")
-    private String wrongAnswer1;
-
-    @Nullable
-    @ColumnInfo(name = "wrong_answer_2")
-    private String wrongAnswer2;
 
     public String getQuestion() {
         return question;
@@ -71,6 +56,24 @@ public class Flashcard {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    //IF MULTIPLE CHOICE
+
+    Flashcard(String question, String answer, String wrongAnswer1, String wrongAnswer2) {
+        this.uuid = UUID.randomUUID().toString();
+        this.question = question;
+        this.answer = answer;
+        this.wrongAnswer1 = wrongAnswer1;
+        this.wrongAnswer2 = wrongAnswer2;
+    }
+
+    @Nullable
+    @ColumnInfo(name = "wrong_answer_1")
+    private String wrongAnswer1;
+
+    @Nullable
+    @ColumnInfo(name = "wrong_answer_2")
+    private String wrongAnswer2;
 
     @Nullable
     public String getWrongAnswer1() {

@@ -32,7 +32,7 @@
         android:layout_height="27dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:background="@drawable/background"
+        android:background="@color/aqua"
         android:hint="Enter question here"
         android:inputType="textPersonName" />
 
@@ -43,7 +43,7 @@
         android:layout_below="@id/question"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:background="@drawable/background"
+        android:background="@color/aqua"
         android:hint="Enter answer here"
         android:inputType="textPersonName" />
 

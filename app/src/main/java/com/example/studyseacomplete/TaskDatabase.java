@@ -13,9 +13,9 @@ class  TaskDatabase extends SQLiteOpenHelper {
     static final String COLUMN_FINISHED = "finished";
     static final String COLUMN_DATE_DUE = "due";
     static final String COLUMN_DURATION_TIME = "duration";
-    static final String COLUMN_REMINDER_TIME = "reminder";
-    static final String COLUMN_REMINDER_HOURS = "reminder_hours";
-    static final String COLUMN_REMINDER_DAYS = "reminder_days";
+    static final String COLUMN_TIME = "reminder";
+    static final String COLUMN_HOURS = "reminder_hours";
+    static final String COLUMN_DAYS = "reminder_days";
     static final String COLUMN_DURATION_INPUT = "duration_input";
     static final String COLUMN_REMINDER_INPUT = "reminder_input";
     static final String COLUMN_IMPORTANCE = "importance";
@@ -27,9 +27,9 @@ class  TaskDatabase extends SQLiteOpenHelper {
             COLUMN_ID,
             COLUMN_TASK,
             COLUMN_DURATION_TIME,
-            COLUMN_REMINDER_TIME,
-            COLUMN_REMINDER_HOURS,
-            COLUMN_REMINDER_DAYS,
+            COLUMN_TIME,
+            COLUMN_HOURS,
+            COLUMN_DAYS,
             COLUMN_DURATION_INPUT,
             COLUMN_REMINDER_INPUT,
             COLUMN_FINISHED
@@ -73,9 +73,9 @@ class  TaskDatabase extends SQLiteOpenHelper {
                 + COLUMN_CLASS + " string, "
                 + COLUMN_TASK + " string, "
                 + COLUMN_IMPORTANCE + " long, "
-                + COLUMN_REMINDER_TIME + " long, "
-                + COLUMN_REMINDER_DAYS + " long, "
-                + COLUMN_REMINDER_HOURS + " long, "
+                + COLUMN_TIME + " long, "
+                + COLUMN_DAYS + " long, "
+                + COLUMN_HOURS + " long, "
                 + COLUMN_DURATION_TIME + " long, "
                 + COLUMN_REMINDER_INPUT + " long, "
                 + COLUMN_DURATION_INPUT + " long, "

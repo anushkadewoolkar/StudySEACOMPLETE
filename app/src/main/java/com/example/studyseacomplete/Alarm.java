@@ -49,11 +49,11 @@ public class Alarm {
         if (task == null)
             throw new InvalidParameterException("task cannot be null");
 
-        if (task.get(TaskDatabase.COLUMN_REMINDER_TIME) == null)
+        if (task.get(TaskDatabase.COLUMN_TIME) == null)
             return;     // reminders are disabled for this task
 
         Long due = Long.parseLong(task.get(TaskDatabase.COLUMN_DATE_DUE));
-        Long reminder = Long.parseLong(task.get(TaskDatabase.COLUMN_REMINDER_TIME));     // # miliseconds before 'due' to trigger reminder
+        Long reminder = Long.parseLong(task.get(TaskDatabase.COLUMN_TIME));     // # miliseconds before 'due' to trigger reminder
         ReminderListener listener = new ReminderListener(task);
 
         AlarmManager alarmManager = (AlarmManager) HomeworkPlanner.getContext().getSystemService(Context.ALARM_SERVICE);

@@ -16,8 +16,8 @@ public class addflashcard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addflashcard);
 
-
-        if (getIntent().getStringExtra("question") != null) {
+        if (getIntent().getStringExtra("question") != null)
+        {
             String question = getIntent().getStringExtra("question");
             String answer1 = getIntent().getStringExtra("answer1");
 
@@ -32,13 +32,16 @@ public class addflashcard extends AppCompatActivity {
             }
         });
 
+        //makes sure all fields are filled when check image is clicked, else toast is displayed
         findViewById(R.id.check).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (((EditText) findViewById(R.id.question)).getText().toString().equals("") ||
-                        ((EditText) findViewById(R.id.answer1)).getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(), "Please fill all fields", Toast.LENGTH_LONG).show();
-                }else {
+                if (((EditText) findViewById(R.id.question)).getText().toString().equals("") || ((EditText) findViewById(R.id.answer1)).getText().toString().equals(""))
+                {
+                    Toast.makeText(getApplicationContext(), "Please fill out all information", Toast.LENGTH_LONG).show();
+                }
+                else
+                    {
                     Intent data = new Intent();
 
                     data.putExtra("question", ((EditText) findViewById(R.id.question)).getText().toString());
@@ -46,7 +49,7 @@ public class addflashcard extends AppCompatActivity {
                     data.putExtra("edit", getIntent().getStringExtra("edit"));
                     setResult(RESULT_OK, data);
                     finish();
-                }
+                    }
             }
         });
     }

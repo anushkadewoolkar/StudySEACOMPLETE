@@ -26,7 +26,7 @@ public class AutoStart extends BroadcastReceiver {
             // create an alarm for each uncompleted task
             while (!taskCursor.isAfterLast()) {
                 Task task = new Task(taskCursor);
-                Long reminder = Long.parseLong(task.get(TaskDatabase.COLUMN_REMINDER_TIME));
+                Long reminder = Long.parseLong(task.get(TaskDatabase.COLUMN_TIME));
                 Long due = Long.parseLong(task.get(TaskDatabase.COLUMN_DATE_DUE));
 
                 Alarm.setOverdueAlarm(task);
